@@ -8,7 +8,7 @@ A professional, interactive AI-powered traffic management platform for real-time
 
 ![Demo](demo.gif)
 
-🔗 Live Demo: [Add Your Vercel Link Here]
+🔗 Live Demo: https://3-d-rl-traffic-signal-control-syste.vercel.app
 
 ---
 
