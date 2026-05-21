@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>RL Traffic Simulation (HTML/CSS/JS)</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1 class="title text-balance">RL Traffic Simulation</h1>
+      <div class="controls">
+        <button id="btnStart" class="btn btn-primary" aria-label="Start or pause simulation">Start</button>
+        <button id="btnReset" class="btn" aria-label="Reset simulation">Reset</button>
+        <div class="sep"></div>
+        <button id="btnSpawnCars" class="btn" aria-label="Spawn cars">Spawn Cars</button>
+        <button id="btnSpawnAmb" class="btn btn-accent" aria-label="Spawn ambulance">Spawn Ambulance</button>
+        <div class="sep"></div>
+        <label class="label">Speed
+          <input id="speedSlider" type="range" min="0.5" max="3" value="1" step="0.1" />
+        </label>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="left">
+        <canvas id="sim" width="900" height="600" aria-label="Traffic simulation canvas"></canvas>
+        <div id="overlay" class="overlay" role="status" aria-live="polite" aria-atomic="true"></div>
+      </section>
+
+      <aside class="right">
+        <section class="panel">
+          <h2 class="panel-title">Environment</h2>
+          <ul class="kv">
+            <li><span>Phase</span><strong id="phase">EW</strong></li>
+            <li><span>Reward</span><strong id="reward">0.00</strong></li>
+            <li><span>Cumulative</span><strong id="cumReward">0.00</strong></li>
+            <li><span>Collisions</span><strong id="collisions">0</strong></li>
+            <li><span>Throughput</span><strong id="throughput">0</strong></li>
+            <li><span>Avg Wait</span><strong id="avgWait">0.00s</strong></li>
+            <li><span>Amb Waiting</span><strong id="ambWaiting">No</strong></li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <h2 class="panel-title">Reward Chart</h2>
+          <canvas id="rewardChart" width="360" height="140" aria-label="Reward time series"></canvas>
+        </section>
+
+        <section class="panel">
+          <h2 class="panel-title">How it learns</h2>
+          <ul class="bullets">
+            <li>Actions: keep or switch traffic phase (EW vs NS)</li>
+            <li>State: queue sizes (EW, NS), ambulance presence (EW, NS)</li>
+            <li>Reward: +exits, +ambulance cleared, -waiting, -collisions, -red violations</li>
+            <li>Epsilon-greedy Q-learning updates each step</li>
+          </ul>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <p>Tip: Cars stop on red, only enter on green, and avoid rear-end collisions. Vehicles pull over or change lane when an ambulance is near.</p>
+    </footer>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
